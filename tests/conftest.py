@@ -1,0 +1,6 @@
+"""Gemeinsame Einrichtung: der Wurzelordner steht im Suchpfad."""
+
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
