@@ -51,7 +51,7 @@ with st.container(key="kopf"):
     st.title("🚌 Bus-Bunching: wie lange hält der Takt?")
 st.markdown(
     """
-Auf einer Ringlinie ist ein **gleichmäßiger Takt instabil**: Kommt ein Bus etwas später, wartet an der nächsten Haltestelle mehr Volk, der Halt dauert länger, der Bus wird noch später, und der Bus dahinter holt auf.
+Auf einer Ringlinie ist ein **gleichmäßiger Takt instabil**: Kommt ein Bus etwas später, warten an der nächsten Haltestelle mehr Fahrgäste, der Halt dauert länger, der Bus wird noch später, und der Bus dahinter holt auf.
 Aus kleinen Störungen werden **Pulke**, und die Fahrgäste warten ein Vielfaches des Solls. Die Demo rechnet live ein Szenario (Last, Störung, Busse, Platzgrenze) im **Zeit-Weg-Diagramm**, ohne Regelung gegen eine **Haltestrategie**,
 und zeigt daneben die **vorgerechnete Messreihe** über 30 Zufalls-Seeds.
 
@@ -417,11 +417,6 @@ with st.expander("📐 Mathematische Formulierung"):
     st.latex(r"T_c = \frac{N m + N (d_0 - \kappa \Delta) / (1 + \kappa)}{1 - \sigma / (1 + \kappa)}")
     st.markdown("mit dem Abstand $\\Delta$ des letzten Busses zum ersten. Der Nenner wird bei $\\sigma = 1 + \\kappa$ null: Zusammenbruch. **Wartezeit-Paradox:** bei Abstandsmittel $\\bar h$ und Variationskoeffizient $\\mathrm{CV}$")
     st.latex(r"\bar W = \bar h\,\frac{1 + \mathrm{CV}^2}{2}")
-
-st.markdown("**War diese Demo hilfreich für Sie?**")
-fb1, fb2 = st.columns(2)
-fb1.button("👍 Ja", key="feedback_up", width="stretch")
-fb2.button("👎 Nein", key="feedback_down", width="stretch")
 
 st.markdown("---")
 st.caption(

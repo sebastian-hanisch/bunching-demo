@@ -3,7 +3,7 @@
 <!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
 **[→ Demo live ausprobieren](https://sebastianhanisch-bunching-demo.streamlit.app/)** -->
 
-Fall-Demo für die Website „Sebastian Hanisch – Operations Research und Machine Learning“ (`demos.html`, Gruppe ÖPNV), vierte Demo der Seite [ÖPNV und Fernverkehr optimieren](https://sebastianhanisch.net/oepnv-fernverkehr-optimierung.html) nach dem festen Liniennetz ([transit-demo](https://github.com/sebastian-hanisch/transit-demo)), dem [Rufbus](https://github.com/sebastian-hanisch/rufbus-demo) und der [Tarifplanung](https://github.com/sebastian-hanisch/tarif-demo). Auf einer Ringlinie ist ein gleichmäßiger Takt **instabil**: Kommt ein Bus etwas später, wartet an der nächsten Haltestelle mehr Volk, der Halt dauert länger, der Bus wird noch später, und der Bus dahinter holt auf. Aus kleinen Störungen werden Pulke.
+Fall-Demo für die Website „Sebastian Hanisch – Operations Research und Machine Learning“ (`demos.html`, Gruppe ÖPNV), vierte Demo der Seite [ÖPNV und Fernverkehr optimieren](https://sebastianhanisch.net/oepnv-fernverkehr-optimierung.html) nach dem festen Liniennetz ([transit-demo](https://github.com/sebastian-hanisch/transit-demo)), dem [Rufbus](https://github.com/sebastian-hanisch/rufbus-demo) und der [Tarifplanung](https://github.com/sebastian-hanisch/tarif-demo). Auf einer Ringlinie ist ein gleichmäßiger Takt **instabil**: Kommt ein Bus etwas später, warten an der nächsten Haltestelle mehr Fahrgäste, der Halt dauert länger, der Bus wird noch später, und der Bus dahinter holt auf. Aus kleinen Störungen werden Pulke.
 
 ## Warum dieses Problem
 
