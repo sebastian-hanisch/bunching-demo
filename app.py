@@ -177,7 +177,7 @@ st.markdown("## 💰 Was kostet das Halten?")
 st.plotly_chart(build_cost_bars(a), width="stretch", key="cost_bars")
 st.markdown(
     "Halten spart Wartezeit und kostet **Umlaufzeit**: Der Bus steht an Haltestellen, bis der Abstand stimmt. Ob sich das lohnt, sagt die **Gesamtreisezeit** (Warten plus Fahren). "
-    "Bei sehr vielen Bussen (24, ein Bus je Haltestelle) und bei voll besetzten Bussen frisst die längere Fahrzeit den Gewinn: Das zeigen die Presets „Zu viele Busse“ und „Volle Busse“."
+    "Bei sehr vielen Bussen (24, ein Bus je Haltestelle) und bei voll besetzten Bussen hebt die längere Fahrzeit den Gewinn auf: Das zeigen die Presets „Zu viele Busse“ und „Volle Busse“."
 )
 
 st.markdown("## 📊 Was die Messreihe über 30 Zufalls-Seeds zeigt")
