@@ -60,6 +60,17 @@ Nachbarn: das feste Liniennetz der [ÖPNV-Liniennetz-Demo](https://sebastianhani
 """
 )
 
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/bus-bunching-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Stellen Sie sich eine Buslinie im Kreis vor, auf der alle Busse im gleichen Abstand starten. Wird ein Bus etwas später, warten an der nächsten Haltestelle mehr Fahrgäste, der Halt dauert länger, und der Bus wird noch später. Der Bus dahinter findet weniger Wartende, hält kürzer und holt auf. So werden aus kleinen Störungen **Pulke**: Mehrere Busse fahren zusammen, danach klafft eine große Lücke, und die Fahrgäste warten lange. Die Demo zeigt das im Zeit-Weg-Diagramm und prüft, was hilft: Busse an Haltestellen bewusst warten zu lassen (**Holding**). Das kostet Umlaufzeit und kann bei sehr vielen oder voll besetzten Bussen sogar schaden. Es ist ein stark vereinfachtes Modell, das einen Mechanismus zeigt, keine Prognose für eine reale Linie.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/bus-bunching-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
+
 st.caption("🔗 Die Adresszeile oben spiegelt Ihre aktuelle Konfiguration wider – einfach kopieren, um ein Szenario zu teilen.")
 
 load_permalink_settings()
@@ -405,6 +416,28 @@ Die erste Zeit nach dem Start wird verworfen (Einschwingzeit); ohne Regelung gib
     )
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/bus-bunching-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind eine Ringlinie mit Haltestellen und Bussen, die Fahrgastrate, die Zustiegszeit und die zufällige Störung der Fahrzeit. Gesucht ist, wie gleichmäßig der Takt bleibt und wie lange die Fahrgäste im Mittel warten ($\bar W$), ohne Regelung und mit Halten.
+
+| Symbol | Bedeutung |
+|---|---|
+| $D$, $d_0$, $s$, $n$ | Haltezeit, Grundhalt, Zustiegszeit je Fahrgast, Zahl der Einsteigenden |
+| $t_{\text{an}}$, $t_{\text{ab}}$ | Ankunfts- und Abfahrtszeit des Busses an der Haltestelle |
+| $\lambda$, $g$ | Fahrgastrate je Haltestelle, Abstand zum Vordermann |
+| $\kappa$, $\sigma$, $\rho$ | Rückkopplung ($s\lambda$), Last der ganzen Linie, Last je Bus |
+| $N$, $B$ | Zahl der Haltestellen, Zahl der Busse |
+| $k$, $\tau$, $p$, $T_0$ | Nummer des Halts, Sollzeit je Halt, Puffer, Soll-Umlaufzeit |
+| $\eta$, $h_0$, $t^{\text{Vorg}}$, $H$ | Anteil am Soll-Takt, Soll-Takt, Abfahrt des Vordermanns, Obergrenze der zusätzlichen Haltezeit |
+| $h_{\text{eq}}$, $m$ | Gleichgewichtstakt ohne Störung, reine Fahrzeit |
+| $T_c$, $\Delta$ | Umlaufzeit des ersten Busses im Konvoi, Abstand des letzten Busses zum ersten |
+| $\bar W$, $\bar h$, $\mathrm{CV}$ | mittlere Wartezeit, mittlerer Abstand, Variationskoeffizient der Abstände |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/bus-bunching-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown("Haltezeit eines Busses an einer Haltestelle mit $n$ einsteigenden Wartenden, Grundhalt $d_0$ und Zustiegszeit $s$; Abfahrt ohne Regelung:")
     st.latex(r"D = d_0 + s\,n, \qquad t_{\text{ab}} = t_{\text{an}} + D")
     st.markdown("Mit der Fahrgastrate $\\lambda$ ist $n \\approx \\lambda g$ für den Abstand $g$ zum Vordermann. Die Rückkopplung wird durch $\\kappa$ und die Last der ganzen Linie durch $\\sigma$ (bei $N$ Haltestellen) gemessen:")
