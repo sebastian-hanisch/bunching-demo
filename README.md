@@ -7,7 +7,7 @@ Fall-Demo für die Website „Sebastian Hanisch – Operations Research und Mach
 
 ## Warum dieses Problem
 
-Ohne Regelung warten die Fahrgäste auf der Ringlinie der Messreihe (24 Haltestellen, 8 Busse, Soll-Takt 7,5 min) im Mittel 14,6 ± 1,0 min statt 3,75 min beim gleichmäßigen Takt; der Variationskoeffizient der Abstände (CV) liegt bei 1,68. Ein Halten der Busse an den Haltestellen (Headway-Holding) senkt die Wartezeit auf 3,9 ± 0,0 min und kostet 17 % Umlaufzeit. Die Demo zeigt den **Mechanismus** im Zeit-Weg-Diagramm und ehrlich, was daran **nicht** trägt: Es gibt keinen scharfen Kipppunkt der Entstehung (die Kurve in der Last σ ist stetig), keine Optimierung (eine einfache Regel liegt am Optimum), und bei sehr vielen oder voll besetzten Bussen **schadet** das Halten.
+Ohne Regelung warten die Fahrgäste auf der Ringlinie der Messreihe (24 Haltestellen, 8 Busse, Soll-Takt 7,5 min) im Mittel 14,6 ± 1,0 min statt 3,75 min beim gleichmäßigen Takt; der Variationskoeffizient der Abstände (CV) liegt bei 1,68. Ein Halten der Busse an den Haltestellen (Headway-Holding) senkt die Wartezeit auf 3,9 ± 0,0 min und kostet 17 % Umlaufzeit. Die Demo zeigt den **Mechanismus** im Zeit-Weg-Diagramm und ehrlich, was daran **nicht** gilt: Es gibt keinen scharfen Kipppunkt der Entstehung (die Kurve in der Last σ ist stetig), keine Optimierung (eine einfache Regel liegt am Optimum), und bei sehr vielen oder voll besetzten Bussen **schadet** das Halten.
 
 ## Modell
 
