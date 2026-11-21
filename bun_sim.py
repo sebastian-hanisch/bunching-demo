@@ -1,4 +1,4 @@
-"""Ereignissimulation einer Ringlinie mit Bus-Bunching.
+"""Ereignisdiskrete Simulation einer Ringlinie mit Bus-Bunching.
 
 Zeit in Minuten. Ring mit N Haltestellen, B Busse, zu Beginn gleichmäßig verteilt. Fahrgäste je Haltestelle: Poisson-Strom mit Rate lam (je Minute),
 Ziel gleichverteilt auf die übrigen N − 1 Haltestellen. Haltezeit = d0 + s · (Zahl der einsteigenden Wartenden). Fahrzeit je Segment: Erlang-verteilt mit

@@ -82,7 +82,7 @@ Alle Zahlen gelten für diese Ringlinie mit unabhängiger Fahrzeitstörung (Mitt
 | `bun_presets.py` | Permalink (Begrenzen), Presets, Zufalls-Seed-Button |
 | `bun_results.py` | Laden und Abfragen der vorgerechneten Messreihe |
 | `bun_rng.py` | SplitMix64, Block-Strom, eigener Logarithmus und eigene Exponentialfunktion, Poisson, Erlang |
-| `bun_sim.py` | Ereignissimulation mit Warteschlangen-Buchhaltung, Strategien und Platzgrenze |
+| `bun_sim.py` | Ereignisdiskrete Simulation mit Warteschlangen-Buchhaltung, Strategien und Platzgrenze |
 | `bun_stories.py` | Abnahmekriterien der Presets |
 | `bun_theory.py` | Gleichgewichtstakt, Wachstumsrate, Konvoi-Formel, Wartezeit-Paradox |
 | `bun_visualization.py` | Plotly-Abbildungen (Achsen gesperrt) |
@@ -107,7 +107,7 @@ Alle Zahlen gelten für diese Ringlinie mit unabhängiger Fahrzeitstörung (Mitt
 
 - **[transit-demo](https://github.com/sebastian-hanisch/transit-demo):** das feste Liniennetz; dort wird die Linienführung gewählt, hier der Betrieb auf einer gegebenen Linie.
 - **[taktfahrplan-demo](https://github.com/sebastian-hanisch/taktfahrplan-demo):** Abfahrtsminuten für feste Linien; hier entscheidet der Fahrplan nicht, sondern das Verhalten im Betrieb.
-- **[rufbus-demo](https://github.com/sebastian-hanisch/rufbus-demo):** Rufbus oder Linienbus, gleiche Kulisse (Ereignissimulation, SplitMix64), andere Frage.
+- **[rufbus-demo](https://github.com/sebastian-hanisch/rufbus-demo):** Rufbus oder Linienbus, gleiche Kulisse (Ereignisdiskrete Simulation, SplitMix64), andere Frage.
 - **[tarif-demo](https://github.com/sebastian-hanisch/tarif-demo):** die Preise auf demselben Netz; gleiche Methodik (vorgerechnete Messreihe, Neumessung auf ganzzahligem Generator).
 - **[mm1-queue-demo](https://github.com/sebastian-hanisch/mm1-queue-demo):** Warteschlangentheorie mit zufälligen Ankünften; das Wartezeit-Paradox dieser Demo ist das Gegenstück bei Busankünften.
 
