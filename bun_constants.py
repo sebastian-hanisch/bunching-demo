@@ -65,7 +65,7 @@ PRESET_HELP = {
     "Pulk in wenigen Stunden": "Keine Regelung: Die Abstände streuen, der Variationskoeffizient steigt über 1,2, die Busse laufen als Pulk.",
     "Fahrplan-Puffer reicht nicht": "Bei höherer Last (σ 0,72) bricht der feste Puffer des Fahrplan-Holdings ein; Headway-Holding hält noch.",
     "Zusammenbruch": "Bei σ 1,2 schafft ein einzelner Bus den Einsteige-Aufwand der Linie nicht mehr: Auch die beste Regel scheitert.",
-    "Zu viele Busse": "Bei einem Bus je Haltestelle schadet das Halten: Die Wartezeit sinkt, die Fahrzeit im Bus steigt stärker.",
-    "Volle Busse": "Bei 50 Plätzen ist die Linie kapazitätsgebunden: Halten kostet Umläufe und verschlechtert die Lage.",
+    "Zu viele Busse": "Bei einem Bus je Haltestelle schadet Holding: Die Wartezeit sinkt, die Fahrzeit im Bus steigt stärker.",
+    "Volle Busse": "Bei 50 Plätzen ist die Linie kapazitätsgebunden: Holding kostet Umläufe und verschlechtert die Lage.",
     "Seltene Busse": "Bei nur 2 Bussen (Takt 30 min) reagiert Headway-Holding auf die wirkliche Lücke und schlägt das Fahrplan-Holding.",
 }

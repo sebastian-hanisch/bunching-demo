@@ -55,7 +55,7 @@ Auf einer Ringlinie ist ein **gleichmäßiger Takt instabil**: Kommt ein Bus etw
 Aus kleinen Störungen werden **Pulke**, und die Fahrgäste warten ein Vielfaches des Solls. Die Demo rechnet live ein Szenario (Last, Störung, Busse, Platzgrenze) im **Zeit-Weg-Diagramm**, ohne Regelung gegen eine **Haltestrategie**,
 und zeigt daneben die **vorgerechnete Messreihe** über 30 Zufalls-Seeds.
 
-Weiter unten: **📐 Wie lange hält der Takt?**, **💰 Was kostet das Halten?**, **📊 Was die Messreihe über 30 Zufalls-Seeds zeigt** und der Expander **🔧 Wie wir das erreichen**.
+Weiter unten: **📐 Wie lange hält der Takt?**, **💰 Was kostet Holding?**, **📊 Was die Messreihe über 30 Zufalls-Seeds zeigt** und der Expander **🔧 Wie wir das erreichen**.
 Nachbarn: das feste Liniennetz der [ÖPNV-Liniennetz-Demo](https://sebastianhanisch-transit-demo.streamlit.app/), der [Taktfahrplan](https://sebastianhanisch-taktfahrplan-demo.streamlit.app/), der [Rufbus](https://sebastianhanisch-rufbus-demo.streamlit.app/) und die [Tarifplanung](https://sebastianhanisch-tarif-demo.streamlit.app/).
 """
 )
@@ -94,9 +94,9 @@ with st.sidebar:
     noise = st.selectbox("Störung der Fahrzeiten", tuple(C.NOISE_CHOICES), key="noise_select", format_func=lambda k: C.NOISE_LABELS[k],
                          help="Streuung der Fahrzeit je Segment, unabhängig von Segment zu Segment (Praxis: meist korreliert, das beschleunigt das Bunching). Die Wirkung ist nicht monoton.")
     buses = st.selectbox("Busse (Soll-Umlaufzeit 60 min)", C.BUSES_CHOICES, key="buses_select", format_func=lambda b: f"{b} Busse, Soll-Takt {de(60 / b, 1)} min",
-                         help="Bei 24 Bussen steht rechnerisch ein Bus je Haltestelle: Dann schadet das Halten.")
+                         help="Bei 24 Bussen steht rechnerisch ein Bus je Haltestelle: Dann schadet Holding.")
     capacity = st.selectbox("Platzgrenze je Bus", C.CAPACITY_CHOICES, key="capacity_select", format_func=lambda k: C.CAPACITY_LABELS[k],
-                            help="Mit Platzgrenze bleiben Fahrgäste an der Haltestelle zurück. Bei 50 Plätzen ist die Linie voll besetzt: Halten verschlechtert die Lage. Die Zahlen ohne Grenze sind Obergrenzen.")
+                            help="Mit Platzgrenze bleiben Fahrgäste an der Haltestelle zurück. Bei 50 Plätzen ist die Linie voll besetzt: Holding verschlechtert die Lage. Die Zahlen ohne Grenze sind Obergrenzen.")
     horizon = st.selectbox("Betrachtung", tuple(C.HORIZONS), key="horizon_select", format_func=lambda k: C.HORIZON_LABELS[k],
                            help="Ohne Regelung gibt es in einer Schicht keinen stationären Zustand; 40 Stunden zeigen, wohin es läuft.")
     window = st.selectbox("Zeitfenster des Diagramms", allowed_windows(horizon), key="window_select", format_func=_window_label,
@@ -149,7 +149,7 @@ mc1.metric("Wartezeit", f"{de(a.stat(s_key, 'wait')[0])} min", delta=f"{de(a.sta
 mc2.metric("Gesamtreisezeit (Warten + Fahren)", f"{de(a.stat(s_key, 'total')[0])} min", delta=f"{de(a.stat(s_key, 'total')[0] - a.stat('none', 'total')[0])} gegen ohne Regelung", delta_color="inverse",
            help="Wartezeit plus Fahrzeit im Bus.")
 mc3.metric("Umlaufzeit", f"{de(a.stat(s_key, 'cycle')[0], 0)} min", delta=f"{de(a.stat(s_key, 'cycle')[0] - a.stat('none', 'cycle')[0], 0)} gegen ohne Regelung", delta_color="inverse",
-           help=f"Der Preis des Haltens. Soll-Umlaufzeit {de(p.T0, 0)} min.")
+           help=f"Der Preis des Holdings. Soll-Umlaufzeit {de(p.T0, 0)} min.")
 
 rows = []
 for key in a.strategies:
@@ -182,12 +182,12 @@ hb = a.stat("none", "wait")[0]
 st.caption(f"Wartezeit-Paradox: Bei zufällig eintreffenden Fahrgästen wartet man im Mittel h̄ (1 + CV²) / 2 statt h̄ / 2. Ohne Regelung gemessen: {de(hb)} min; mit dem gemessenen CV {de(a.stat('none', 'cv')[0], 2)} "
            f"und h̄ ≈ {de(a.stat('none', 'hbar')[0])} min ergibt die Formel {de(TH.mean_wait_formula(a.stat('none', 'hbar')[0], a.stat('none', 'cv')[0]))} min (nicht exakt, weil Haltezeit und Fahrgäste während des Halts hineinspielen).")
 
-# --- Was kostet das Halten? ---------------------------------------------------------------------------------------------------------------
+# --- Was kostet Holding? ---------------------------------------------------------------------------------------------------------------
 
-st.markdown("## 💰 Was kostet das Halten?")
+st.markdown("## 💰 Was kostet Holding?")
 st.plotly_chart(build_cost_bars(a), width="stretch", key="cost_bars")
 st.markdown(
-    "Halten spart Wartezeit und kostet **Umlaufzeit**: Der Bus steht an Haltestellen, bis der Abstand stimmt. Ob sich das lohnt, sagt die **Gesamtreisezeit** (Warten plus Fahren). "
+    "Holding spart Wartezeit und kostet **Umlaufzeit**: Der Bus steht an Haltestellen, bis der Abstand stimmt. Ob sich das lohnt, sagt die **Gesamtreisezeit** (Warten plus Fahren). "
     "Bei sehr vielen Bussen (24, ein Bus je Haltestelle) und bei voll besetzten Bussen hebt die längere Fahrzeit den Gewinn auf: Das zeigen die Presets „Zu viele Busse“ und „Volle Busse“."
 )
 
@@ -239,7 +239,7 @@ st.dataframe(pd.DataFrame([{"σ": de(r["sigma"], 2), "Umlaufzeit ohne Regelung (
                             "Fahrplan 20 %": de(r["wartezeit"]["sched1_20"]["mean"])} for r in coll]), width="stretch", hide_index=True)
 st.caption("„–“: In 40 Stunden kam bei dieser Last kein vollständiger Umlauf eines Busses zustande, die Umlaufzeit ist nicht messbar.")
 
-st.markdown("### Was Halten kostet und wann es sich nicht lohnt")
+st.markdown("### Was Holding kostet und wann es sich nicht lohnt")
 srows = Rs.strategy_rows("basis/schicht")
 st.dataframe(pd.DataFrame([{"Strategie": r["label"], "Wartezeit (min)": Rs.stat_text(r["wait"]), "Fahrzeit im Bus (min)": de(r["ride"]["mean"]), "Gesamt (min)": de(r["total"]["mean"]), "CV der Abstände": de(r["cv"]["mean"], 2),
                             "Umlaufzeit (min)": de(r["cycle"]["mean"], 1), "Halt über Mindesthalt (min)": de(r["hold"]["mean"], 2), "Gesamt gegen ohne (gepaart)": Rs.stat_text(r["d_total_gegen_none"])} for r in srows.values()]),
@@ -259,7 +259,7 @@ flip = [b for b in sorted(hf, key=int) if hf[b]["total"] > 0]
 st.markdown(
     f"**Gesamtreisezeit gegen die Zahl der Busse** (Warten plus Fahren, Soll-Umlaufzeit 60 min). Headway-Holding schlägt das Fahrplan-Holding bei {', '.join(b for b in sorted(hf, key=int) if hf[b]['total'] <= 0)} Bussen "
     f"(Unterschied {de(min(hf[b]['total'] for b in hf if hf[b]['total'] <= 0), 1)} bis {de(max(hf[b]['total'] for b in hf if hf[b]['total'] <= 0), 1)} min), das Fahrplan-Holding ab {flip[0]} Bussen. Der Unterschied ist klein; "
-    "der echte Unterschied ist die Robustheit (siehe Zusammenbruch). **Bei sehr vielen Bussen schadet das Halten:** "
+    "der echte Unterschied ist die Robustheit (siehe Zusammenbruch). **Bei sehr vielen Bussen schadet Holding:** "
     f"Mit 24 Bussen (ein Bus je Haltestelle) liegt die Gesamtreisezeit ohne Regelung bei {Rs.stat_text(bt['24/none']['total'])} min, mit Fahrplan-Holding bei {Rs.stat_text(bt['24/sched1_10']['total'])} und mit Headway-Holding bei {Rs.stat_text(bt['24/hw1_10']['total'])}: "
     "Die Wartezeit sinkt, die längere Fahrzeit im Bus frisst den Gewinn."
 )
@@ -269,7 +269,7 @@ st.dataframe(pd.DataFrame([{"Platzgrenze": C.CAPACITY_LABELS.get(k, "unbegrenzt"
                             "ohne Regelung": de(cap[k]["none"]["wait"]["mean"]), "Fahrplan 10 %": de(cap[k]["sched1_10"]["wait"]["mean"]), "Headway η 1,0": de(cap[k]["hw1_10"]["wait"]["mean"]),
                             "Umlaufzeit ohne / Fahrplan / Headway (min)": f"{de(cap[k]['none']['cycle']['mean'], 0)} / {de(cap[k]['sched1_10']['cycle']['mean'], 0)} / {de(cap[k]['hw1_10']['cycle']['mean'], 0)}"}
                            for k in ("30", "40", "50", "60", "80", "120", "unbegrenzt")]), width="stretch", hide_index=True)
-st.caption("Bei einer mittleren Besetzung von etwa 1 und darüber ist die Linie kapazitätsgebunden: Die Zahlen des Standardfalls ohne Platzgrenze sind Obergrenzen für den Gewinn des Haltens, und ein Konvoi aus allen Bussen tritt nur ohne Grenze auf.")
+st.caption("Bei einer mittleren Besetzung von etwa 1 und darüber ist die Linie kapazitätsgebunden: Die Zahlen des Standardfalls ohne Platzgrenze sind Obergrenzen für den Gewinn des Holdings, und ein Konvoi aus allen Bussen tritt nur ohne Grenze auf.")
 
 st.markdown("### Eine einfache Regel liegt am Optimum")
 opt = Rs.optimum("basis/total")
@@ -279,7 +279,7 @@ sk = opt["optimum"]["sched"]["schluessel"]
 st.markdown(
     f"Fläche der Gesamtreisezeit des Fahrplan-Holdings über Kontrollhaltestellen und Puffer (Test-Seeds 101 bis 160, Standardfall). Das Optimum liegt bei Kontrollhaltestelle jede {sk[1]}. und {de(100 * sk[2], 1)} % Puffer: {Rs.stat_text(opt['optimum']['sched']['test'])} min "
     f"(ohne Regelung {Rs.stat_text(opt['none_test'])}). Die Fläche ist flach: {Rs.share_text(opt['breite']['sched_2%'])} Zellen liegen innerhalb 2 % des Optimums, {Rs.share_text(opt['breite']['sched_10%'])} innerhalb 10 %. "
-    f"In {Rs.share_text(opt['schlechter_als_nichts'])} Zellen des Gitters ist Halten schlechter als nichts tun."
+    f"In {Rs.share_text(opt['schlechter_als_nichts'])} Zellen des Gitters ist Holding schlechter als nichts tun."
 )
 combos = ("basis/total", "basis/w2", "basis/wait", "hart/total", "hart/w2", "hart/wait")
 combo_label = {"basis/total": "Standard, Gesamtreisezeit", "basis/w2": "Standard, 2 · Warten + Fahren", "basis/wait": "Standard, Wartezeit", "hart/total": "hart, Gesamtreisezeit",
@@ -352,7 +352,7 @@ Alle Strategien sehen nur den **Vordermann** und die **Uhr**, nicht die Wartende
 | Annahme | Wert | Wirkung |
 |---|---|---|
 | Linie | Ring mit 24 Haltestellen, Busse zu Beginn gleichmäßig verteilt, feste Fahrtrichtung | Der Ring vermeidet Endpunkteffekte; N ist fest |
-| Fahrgäste | je Haltestelle Poisson-Strom mit 0,5 je Minute, Ziel gleichverteilt auf die übrigen Haltestellen (mittlere Fahrt 12 Halte) | keine Pendlerströme, keine Verhaltensänderung |
+| Fahrgäste | je Haltestelle Poisson-Prozess mit 0,5 je Minute, Ziel gleichverteilt auf die übrigen Haltestellen (mittlere Fahrt 12 Halte) | keine Pendlerströme, keine Verhaltensänderung |
 | Haltezeit | Grundhalt 0,25 min plus Zustiegszeit je einsteigendem Fahrgast; Aussteigezeit null | Zustiegszeit über den Regler „Last σ“ |
 | Fahrzeit | Mittel 2,1 min je Segment, Erlang-verteilt, unabhängig von Segment zu Segment | Regler „Störung“; Praxis: meist korreliert (Ampeln, Verkehr), das beschleunigt das Bunching |
 | Steg | ein Bus fährt erst ein, wenn der Vorgänger abgefahren ist (+ 0,05 min); Überholen auf der Strecke möglich | wirkt nur ohne Regelung merklich |
@@ -419,7 +419,7 @@ with st.expander("📐 Mathematische Formulierung"):
     # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/bus-bunching-erklaert.json, nicht von Hand ändern)
     st.markdown(
         r"""
-**Lesehilfe.** Gegeben sind eine Ringlinie mit Haltestellen und Bussen, die Fahrgastrate, die Zustiegszeit und die zufällige Störung der Fahrzeit. Gesucht ist, wie gleichmäßig der Takt bleibt und wie lange die Fahrgäste im Mittel warten ($\bar W$), ohne Regelung und mit Halten.
+**Lesehilfe.** Gegeben sind eine Ringlinie mit Haltestellen und Bussen, die Fahrgastrate, die Zustiegszeit und die zufällige Störung der Fahrzeit. Gesucht ist, wie gleichmäßig der Takt bleibt und wie lange die Fahrgäste im Mittel warten ($\bar W$), ohne Regelung und mit Holding.
 
 | Symbol | Bedeutung |
 |---|---|
